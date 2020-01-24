@@ -35,6 +35,7 @@ int main(int argc, char** argv)
 
 	//run command
 	if (strcmp(argv[1], "run") == 0){
+		//check if a file name has been given
 		if (argc < 3){
 			printf("%s it seems like you tried running a file but didnt give a filename, try \"%s run path/to/file\"", errorIndicator, NAME);
 			printf("\n");
@@ -42,14 +43,15 @@ int main(int argc, char** argv)
 			return 1;
 		}
 		
-		//retrieving file content
-		char * fileName = malloc(strlen(argv[2]) + strlen(EXTENSION) + 1);
+		//concatinate and store the file name with extension
+		char* fileName = malloc(strlen(argv[2]) + strlen(EXTENSION) + 1);
 		strcpy(fileName, argv[2]);
 		strcat(fileName, EXTENSION);
 
-		if (debug == 1){
-			printf("%s reading from file: \"%s\"", debugIndicator, fileName);
-		}
+		//extract content from file
+		char* fileContent = malloc(0);
+		retrieveContent(fileContent, fileName, debug, debugIndicator, errorIndicator);
+
 		printf("\n");
 		printf("\033[0m");//stop ansi colors
 		return 0;
