@@ -62,7 +62,8 @@ int main(int argc, char **argv)
 		strcat(fileName, EXTENSION);
 
 		//extract content from file
-		retrieveContent(fileName, debug, debugIndicator, errorIndicator);
+		char *filecontent = retrieveContent(fileName, debug, debugIndicator, errorIndicator);
+		printf("%s", filecontent);
 		//printf("filecontent: %s\n", fileContent);
 
 		printf("\n");

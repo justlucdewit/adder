@@ -1,7 +1,7 @@
-//todo make the function return a string instead of modifying one
-//todo make the function actually work
-void retrieveContent(char *url, int debug, char *debugIndicator, char *errorIndicator)
+char *retrieveContent(char *url, int debug, char *debugIndicator, char *errorIndicator)
 {
+    char *output = malloc(1);
+    *output = '\0';
     if (debug == 1)
     { //debug reading a file
         printf("%s reading from file: \"%s\"\n", debugIndicator, url);
@@ -18,21 +18,16 @@ void retrieveContent(char *url, int debug, char *debugIndicator, char *errorIndi
         exit(0);
     }
 
-    int n = 0;
-    int size = 0;
-    while (fscanf(fp, "%*[^\n]\n%n", &n) != EOF)
+    char line[255];
+    while (!feof(fp))
     {
-        size += n;
-        printf("%d\n", size);
+        fgets(line, 150, fp);                                        //get current line
+        output = realloc(output, strlen(output) + strlen(line) + 1); //grow output buffer
+        strcat(output, line);                                        //append line to output
+        //printf("%s", line);
     }
 
-    //printf("%d\n", size);
-    char *output = malloc(size + 2);
-
-    //retrieve file content
-    fread(output, 1, size, fp);
-    //output[strlen(output)] = '\0';
-    printf("%s\n", output);
-
     fclose(fp);
+
+    return output;
 }
