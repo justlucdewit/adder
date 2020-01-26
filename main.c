@@ -10,12 +10,13 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stddef.h>
-#include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
 
 //own headers
 #include "retrieveContent.h"
+#include "lexicalanalyzer.h"
+#include "printcolor.h"
 
 #define ANSIRED "\033[91m"
 #define ANSIGREEN "\033[92m"
@@ -27,20 +28,13 @@
 #define NAME "adder"
 
 //! ansi colors dont work in cmd :(
-char *debugIndicator = "\033[92m[Debug]";
-char *errorIndicator = "\033[91m[Error]";
-
-//boolean to for debugging mode
-int debug = 1;
-
 int main(int argc, char **argv)
 {
 	//error if no arguments were supplied
 	if (argc < 2)
 	{
-		printf("%s it seems like you didnt supply enough arguments, try \"%s help\"", errorIndicator, NAME);
+		printcolor("it seems like you didnt supply enough arguments, try \"%s help\"", "red", NAME);
 		printf("\n");
-		printf("\033[0m"); //stop ansi colors
 		return 0;
 	}
 
@@ -50,7 +44,7 @@ int main(int argc, char **argv)
 		//check if a file name has been given
 		if (argc < 3)
 		{
-			printf("%s it seems like you tried running a file but didnt give a filename, try \"%s run path/to/file\"", errorIndicator, NAME);
+			printcolor("it seems like you tried running a file but didnt give a filename, try \"%s run path/to/file\"", "red", NAME);
 			printf("\n");
 			printf("\033[0m"); //stop ansi colors
 			return 0;
@@ -62,7 +56,7 @@ int main(int argc, char **argv)
 		strcat(fileName, EXTENSION);
 
 		//extract content from file
-		char *filecontent = retrieveContent(fileName, debug, debugIndicator, errorIndicator);
+		char *filecontent = retrieveContent(fileName);
 		printf("%s", filecontent);
 		//printf("filecontent: %s\n", fileContent);
 
@@ -86,16 +80,14 @@ int main(int argc, char **argv)
 	{
 		printf(VERSION);
 		printf("\n");
-		printf("\033[0m"); //stop ansi colors
 		return 0;
 	}
 
 	//invallid command
 	else
 	{
-		printf("%s it seems like %s is a invalid command, try \"%s help\"", errorIndicator, argv[1], NAME);
+		printcolor("it seems like %s is a invalid command, try \"%s help\"", "red", argv[1], NAME);
 		printf("\n");
-		printf("\033[0m"); //stop ansi colors
 		return 0;
 	}
 }

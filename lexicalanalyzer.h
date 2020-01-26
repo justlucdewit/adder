@@ -1,0 +1,3 @@
+void lexicalanaluzer(/*char *script*/)
+{
+}
