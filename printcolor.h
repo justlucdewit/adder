@@ -11,7 +11,7 @@ void printcolor(char *formatString, char *color, ...)
 
     if (strcmp(color, "red") == 0)
     {
-        printf("\033[30m[Error]");
+        printf("\033[31m[Error]");
     }
 
     else if (strcmp(color, "green") == 0)
@@ -19,8 +19,7 @@ void printcolor(char *formatString, char *color, ...)
         printf("\033[32m[Debug]");
     }
 
-    printf("%s", formatString);
-
+    vprintf(formatString, args);
     va_end(args);
     fflush(stdout);
     printf("\033[0m");

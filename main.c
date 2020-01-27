@@ -18,10 +18,6 @@
 #include "lexicalanalyzer.h"
 #include "printcolor.h"
 
-#define ANSIRED "\033[91m"
-#define ANSIGREEN "\033[92m"
-#define ANSISTOP "\033[0m"
-
 //project information
 #define EXTENSION ".add"
 #define VERSION "adder 1.1.1:2"
@@ -57,8 +53,10 @@ int main(int argc, char **argv)
 
 		//extract content from file
 		char *filecontent = retrieveContent(fileName);
-		printf("%s", filecontent);
-		//printf("filecontent: %s\n", fileContent);
+
+		//tokenfy file content
+		printcolor("tokenizing file content\n", "green");
+		lexicalanalyzer(filecontent);
 
 		printf("\n");
 		printf("\033[0m"); //stop ansi colors
