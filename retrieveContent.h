@@ -1,5 +1,5 @@
 #define debug 1
-#include "printcolor.h"
+#include "helpers.h"
 
 char *retrieveContent(char *url)
 {

@@ -16,11 +16,11 @@
 //own headers
 #include "retrieveContent.h"
 #include "lexicalanalyzer.h"
-#include "printcolor.h"
+#include "helpers.h"
 
 //project information
 #define EXTENSION ".add"
-#define VERSION "adder 1.1.1:2"
+#define VERSION "adder 1.1.1:3"
 #define NAME "adder"
 
 //! ansi colors dont work in cmd :(
