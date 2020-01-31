@@ -3,7 +3,8 @@ enum tokenTypes
     Integer,
     Float,
     Operator,
-    Unknown
+    Unknown,
+    Initial
 };
 
 struct token

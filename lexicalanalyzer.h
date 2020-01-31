@@ -12,6 +12,8 @@
 
 void lexicalanalyzer(char *script)
 {
+    struct token *tokensFound = malloc(1);
+    int numOfTokens = 0;
     printf("\n"); //make some space for printing
 
     //loop trough every character in the script
@@ -41,11 +43,19 @@ void lexicalanalyzer(char *script)
         }
 
         //set value of the token
-        char stringToken[2] = {currchar, '\0'};
-        currentToken.value = stringToken;
+        currentToken.value = malloc((sizeof currchar) * 2);
+        currentToken.value[0] = currchar;
+        currentToken.value[1] = '\0';
 
-        //print out the token
-        char *tokentypeString = getTokenType(currentToken.type);
-        printf("token[type: %s, value: %s]\n", tokentypeString, currentToken.value);
+        //append token to array
+        //char *tokentypeString = getTokenType(currentToken.type);
+        numOfTokens += 1;
+        tokensFound = realloc(tokensFound, (sizeof currentToken) * numOfTokens);
+        tokensFound[numOfTokens - 1] = currentToken;
+    }
+
+    for (int i = 0; i < numOfTokens; i++)
+    {
+        printf("token[type: %s, value: %s]\n", getTokenType(tokensFound[i].type), tokensFound[i].value);
     }
 }

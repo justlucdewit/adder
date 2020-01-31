@@ -33,29 +33,23 @@ void printcolor(char *formatString, char *color, ...)
 
 int arrayHasChar(char *arr, char character)
 {
-    int arrlen = sizeof(arr) / sizeof(arr[0]);
+    int arrlen = sizeof(arr) / sizeof(arr[0]) + 1;
     for (int i = 0; i <= arrlen; i++)
     {
         if (arr[i] == character)
-        {
             return 1;
-        }
     }
     return 0;
 }
 
 int isOpp(char character)
 {
-    if (arrayHasChar("+-*/%", character))
-        return 1;
-    return 0;
+    return arrayHasChar("+-*/%", character);
 }
 
 int isInt(char character)
 {
-    if (arrayHasChar("1234567890", character))
-        return 1;
-    return 0;
+    return arrayHasChar("0123456789", character);
 }
 
 #endif
