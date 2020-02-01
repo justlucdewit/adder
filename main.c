@@ -20,7 +20,7 @@
 
 //project information
 #define EXTENSION ".add"
-#define VERSION "adder 1.1.1:3"
+#define VERSION "adder 1.1.1:4"
 #define NAME "adder"
 
 //! ansi colors dont work in cmd :(

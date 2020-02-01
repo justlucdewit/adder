@@ -47,6 +47,13 @@ void lexicalanalyzer(char *script)
         currentToken.value[0] = currchar;
         currentToken.value[1] = '\0';
 
+        //check if can append int or opp
+        if (i != 0)
+        {
+            struct token lastToken = tokens[];
+            if (currentToken.type ==)
+        }
+
         //append token to array
         //char *tokentypeString = getTokenType(currentToken.type);
         numOfTokens += 1;
@@ -54,6 +61,7 @@ void lexicalanalyzer(char *script)
         tokensFound[numOfTokens - 1] = currentToken;
     }
 
+    //loop over token array and print it
     for (int i = 0; i < numOfTokens; i++)
     {
         printf("token[type: %s, value: %s]\n", getTokenType(tokensFound[i].type), tokensFound[i].value);
