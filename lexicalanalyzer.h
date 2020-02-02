@@ -48,10 +48,15 @@ void lexicalanalyzer(char *script)
         currentToken.value[1] = '\0';
 
         //check if can append int or opp
-        if (i != 0)
+        if (numOfTokens >= 1)
         {
-            struct token lastToken = tokens[];
-            if (currentToken.type ==)
+            struct token lastToken = tokensFound[numOfTokens - 1];
+            if (currentToken.type == Integer && lastToken.type == Integer) //concat integers
+            {
+                lastToken.value = realloc(lastToken.value, strlen(lastToken.value) + strlen(currentToken.value));
+                strcat(lastToken.value, currentToken.value);
+                continue;
+            }
         }
 
         //append token to array
