@@ -13,6 +13,7 @@
 void lexicalanalyzer(char *script)
 {
     struct token *tokensFound = malloc(1);
+    int lastCharWasSpace = 0;
     int numOfTokens = 0;
     printf("\n"); //make some space for printing
 
@@ -22,7 +23,14 @@ void lexicalanalyzer(char *script)
     {
         //create empty token
         char currchar = script[i];
+
         struct token currentToken;
+
+        if (currchar == ' ')
+        {
+            lastCharWasSpace = 1;
+            continue;
+        }
 
         //test if its an integer
         if (isInt(currchar))
@@ -48,10 +56,20 @@ void lexicalanalyzer(char *script)
         currentToken.value[1] = '\0';
 
         //check if can append int or opp
-        if (numOfTokens >= 1)
+        if (numOfTokens >= 1 && !lastCharWasSpace)
         {
             struct token lastToken = tokensFound[numOfTokens - 1];
-            if (currentToken.type == Integer && lastToken.type == Integer) //concat integers
+
+            //int catting
+            if (currentToken.type == Integer && lastToken.type == Integer)
+            {
+                lastToken.value = realloc(lastToken.value, strlen(lastToken.value) + strlen(currentToken.value));
+                strcat(lastToken.value, currentToken.value);
+                continue;
+            }
+
+            //opp catting
+            if (currentToken.type == Operator && lastToken.type == Operator)
             {
                 lastToken.value = realloc(lastToken.value, strlen(lastToken.value) + strlen(currentToken.value));
                 strcat(lastToken.value, currentToken.value);
@@ -60,10 +78,10 @@ void lexicalanalyzer(char *script)
         }
 
         //append token to array
-        //char *tokentypeString = getTokenType(currentToken.type);
         numOfTokens += 1;
         tokensFound = realloc(tokensFound, (sizeof currentToken) * numOfTokens);
         tokensFound[numOfTokens - 1] = currentToken;
+        lastCharWasSpace = 0;
     }
 
     //loop over token array and print it
