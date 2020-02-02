@@ -15,6 +15,7 @@ void lexicalanalyzer(char *script)
     struct token *tokensFound = malloc(1);
     int lastCharWasSpace = 0;
     int numOfTokens = 0;
+    int readingString = 0;
     printf("\n"); //make some space for printing
 
     //loop trough every character in the script
@@ -26,28 +27,43 @@ void lexicalanalyzer(char *script)
 
         struct token currentToken;
 
+        //statement to enter string reading mode
+        if (currchar == '"')
+        {
+            readingString = 1;
+            continue;
+        }
+
+        //notete a space was happened
         if (currchar == ' ')
         {
             lastCharWasSpace = 1;
             continue;
         }
 
-        //test if its an integer
-        if (isInt(currchar))
+        if (readingString)
         {
-            currentToken.type = Integer;
+            currentToken.type = String;
         }
-
-        //test if its an operator
-        else if (isOpp(currchar))
-        {
-            currentToken.type = Operator;
-        }
-
-        //else idk what it is
         else
         {
-            currentToken.type = Unknown;
+            //test if its an integer
+            if (isInt(currchar))
+            {
+                currentToken.type = Integer;
+            }
+
+            //test if its an operator
+            else if (isOpp(currchar))
+            {
+                currentToken.type = Operator;
+            }
+
+            //else idk what it is
+            else
+            {
+                currentToken.type = Unknown;
+            }
         }
 
         //set value of the token
