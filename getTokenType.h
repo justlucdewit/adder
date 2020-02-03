@@ -25,6 +25,8 @@ char *getTokenType(enum tokenTypes type)
         return "Operator";
     case Unknown:
         return "Unknown";
+    case String:
+        return "String";
     default:
         return "Extreme unkown";
     }

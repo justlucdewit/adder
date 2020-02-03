@@ -35,35 +35,34 @@ void lexicalanalyzer(char *script)
         }
 
         //notete a space was happened
-        if (currchar == ' ')
+        if (currchar == ' ' && !readingString)
         {
             lastCharWasSpace = 1;
             continue;
         }
 
+        //test if its a string
         if (readingString)
         {
             currentToken.type = String;
         }
+
+        //test if its an integer
+        else if (isInt(currchar))
+        {
+            currentToken.type = Integer;
+        }
+
+        //test if its an operator
+        else if (isOpp(currchar))
+        {
+            currentToken.type = Operator;
+        }
+
+        //else idk what it is
         else
         {
-            //test if its an integer
-            if (isInt(currchar))
-            {
-                currentToken.type = Integer;
-            }
-
-            //test if its an operator
-            else if (isOpp(currchar))
-            {
-                currentToken.type = Operator;
-            }
-
-            //else idk what it is
-            else
-            {
-                currentToken.type = Unknown;
-            }
+            currentToken.type = Unknown;
         }
 
         //set value of the token
@@ -86,6 +85,14 @@ void lexicalanalyzer(char *script)
 
             //opp catting
             if (currentToken.type == Operator && lastToken.type == Operator)
+            {
+                lastToken.value = realloc(lastToken.value, strlen(lastToken.value) + strlen(currentToken.value));
+                strcat(lastToken.value, currentToken.value);
+                continue;
+            }
+
+            //string catting
+            if (currentToken.type == String && lastToken.type == String)
             {
                 lastToken.value = realloc(lastToken.value, strlen(lastToken.value) + strlen(currentToken.value));
                 strcat(lastToken.value, currentToken.value);
