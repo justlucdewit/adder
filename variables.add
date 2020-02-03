@@ -1,0 +1,20 @@
+int number = 5
+
+
+def int double(int n):
+    return number*2
+
+
+def bool isOneTwoOrThree(int n):
+    switch n:
+        case 1:
+            return True
+        case 2:
+            return True
+        case 3:
+            return True
+        default:
+            return False
+
+
+print(double(number))

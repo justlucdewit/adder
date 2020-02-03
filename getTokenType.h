@@ -1,3 +1,6 @@
+#ifndef getTokenTypegueard
+#define getTokenTypegueard
+
 enum tokenTypes
 {
     Integer,
@@ -31,3 +34,5 @@ char *getTokenType(enum tokenTypes type)
         return "Extreme unkown";
     }
 }
+
+#endif

@@ -10,7 +10,7 @@
     be build out of it
 */
 
-void lexicalanalyzer(char *script)
+struct token *lexicalanalyzer(char *script)
 {
     struct token *tokensFound = malloc(1);
     int lastCharWasSpace = 0;
@@ -28,7 +28,7 @@ void lexicalanalyzer(char *script)
         struct token currentToken;
 
         //statement to enter string reading mode
-        if (currchar == '"')
+        if (currchar == '"' && !readingString)
         {
             readingString = 1;
             continue;
@@ -44,6 +44,11 @@ void lexicalanalyzer(char *script)
         //test if its a string
         if (readingString)
         {
+            if (currchar == '"')
+            {
+                readingString = 0;
+                continue;
+            }
             currentToken.type = String;
         }
 
@@ -112,4 +117,6 @@ void lexicalanalyzer(char *script)
     {
         printf("token[type: %s, value: %s]\n", getTokenType(tokensFound[i].type), tokensFound[i].value);
     }
+
+    return tokensFound;
 }

@@ -16,6 +16,7 @@
 //own headers
 #include "retrieveContent.h"
 #include "lexicalanalyzer.h"
+#include "getTokenType.h"
 #include "helpers.h"
 
 //project information
